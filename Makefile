@@ -1,21 +1,23 @@
 SRC=src
+UNICODE=-D_UNICODE
 
 all:	mexpr clean.o
+
 
 mexpr:	main.o CStringOp.o CMyParser.o CExprParser.o
 	g++ main.o CStringOp.o CMyParser.o CExprParser.o -o mexpr
 
 main.o:
-	g++ -c $(SRC)/main.cpp
+	g++ $(UNICODE) -c $(SRC)/main.cpp
 
 CStringOp.o:
-	g++ -c $(SRC)/CStringOp.cpp
+	g++ $(UNICODE) -c $(SRC)/CStringOp.cpp
 
 CMyParser.o:
-	g++ -c $(SRC)/CMyParser.cpp
+	g++ $(UNICODE) -c $(SRC)/CMyParser.cpp
 
 CExprParser.o:
-	g++ -c $(SRC)/CExprParser.cpp
+	g++ $(UNICODE) -c $(SRC)/CExprParser.cpp
 
 clean:
 	rm -rf *.o mexpr
