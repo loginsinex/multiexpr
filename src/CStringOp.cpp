@@ -107,7 +107,7 @@ int CStringOp::cmpstr( const CStringOp & s2 ) const
 	}
 }
 
-CStringOp CStringOp::operator=( const CStringOp & x )
+CStringOp & CStringOp::operator=( const CStringOp & x )
 {
 	m_s = x.m_s;
 	cutstr();
@@ -115,7 +115,7 @@ CStringOp CStringOp::operator=( const CStringOp & x )
 	return *this;
 }
 
-CStringOp CStringOp::operator=( LPCTSTR sz )
+CStringOp & CStringOp::operator=( LPCTSTR sz )
 {
 	size_t length = ( sz ? _tcslen( sz ) : 0 );
 	size_t it = 0;
