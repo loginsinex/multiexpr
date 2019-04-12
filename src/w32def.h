@@ -20,7 +20,7 @@
 #include <string>
 #include <string.h>
 
-#ifdef UNICODE
+#ifdef _UNICODE
 typedef std::wstring tstring;
 #else
 typedef std::string tstring;
@@ -37,13 +37,16 @@ typedef std::string tstring;
 #define TEXT(quote)		__TEXT(quote)
 #define __T(x)			L ## x
 #define _T(x)			__T(x)
+#define tprintf			wprintf
 typedef wchar_t* 		LPTSTR;
 typedef wchar_t			TCHAR;
 typedef const wchar_t*		LPCTSTR;
 #define _tcslen			wcslen
+#define _vsntprintf		vswprintf
 #else
 #define TEXT(quote)			quote
 #define _T(x)				x
+#define tprintf			printf
 typedef char*			LPTSTR;
 typedef char			TCHAR;
 typedef const char*		LPCTSTR;

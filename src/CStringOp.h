@@ -39,7 +39,8 @@ class CStringOp
 public:
 	CStringOp();
 	CStringOp( const CStringOp & s );
-	CStringOp( LPCTSTR sz );
+	CStringOp( const wchar_t * sz );
+	CStringOp( const char * sz );
 
 	CStringOp operator=( const CStringOp & x );
 	CStringOp operator=( LPCTSTR sz );

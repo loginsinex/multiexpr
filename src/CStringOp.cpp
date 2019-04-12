@@ -31,9 +31,41 @@ CStringOp::CStringOp( const CStringOp & x )
 	m_s.push_back( 0 );
 }
 
-CStringOp::CStringOp( LPCTSTR sz )
+CStringOp::CStringOp( const wchar_t * sz )
 {
+
+	if ( !sz || !sz[ 0 ] )
+	{
+		operator=( nullptr );
+		return;
+	}
+
+#ifdef _UNICODE
 	operator=( sz );
+#else
+	std::vector<TCHAR> vsz( wcslen( sz ) + 1, 0 );
+	std::mbstate_t state = std::mbstate_t();
+	std::wcsrtombs( vsz.data(), &sz, vsz.size(), &state );
+	operator=( vsz.data() );
+#endif
+}
+
+CStringOp::CStringOp( const char * sz )
+{
+	if ( !sz || !sz[ 0 ] )
+	{
+		operator=( nullptr );
+		return;
+	}
+
+#ifndef _UNICODE
+	operator=( sz );
+#else
+	std::vector<TCHAR> vsz( strlen( sz ) + 1, 0 );
+	std::mbstate_t state = std::mbstate_t();
+	std::mbsrtowcs( vsz.data(), &sz, vsz.size(), &state );
+	operator=( vsz.data() );
+#endif
 }
 
 void CStringOp::cutstr()

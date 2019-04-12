@@ -24,7 +24,7 @@ int main(int argc, char ** argv, char ** env)
 {
 	if ( argc < 2 )
 	{
-		printf(TEXT("ERROR: Missing expressions arguments!\n"));
+		tprintf(TEXT("ERROR: Missing expressions arguments!\n"));
 		return 255;
 	}
 
@@ -34,17 +34,29 @@ int main(int argc, char ** argv, char ** env)
 		try
 		{
 			TOK result;
-			parser.Compile( argv[i] );
+			parser.Compile( CStringOp( argv[i] ).GetString() );
 			parser.Evaluate();
 			parser.Result( result );
 
 			if ( abs(result.v.imag()) < 1e-15 )
 			{
-				printf(TEXT("%s = %Lf\n"), argv[i], result.v.real());
+				tprintf(
+#ifdef _UNICODE
+				TEXT("%ls = %Lf\n")
+#else
+				TEXT("%s = %Lf\n")
+#endif
+				, CStringOp( argv[i] ).GetString(), result.v.real());
 			}
 			else
 			{
-				printf(TEXT("%s = %Lf%c%Lfi\n"),
+				tprintf(
+#ifdef _UNICODE
+				TEXT("%ls = %Lf%c%Lfi\n")
+#else
+				TEXT("%s = %Lf%c%Lfi\n")
+#endif
+				,
 					argv[i],
 					result.v.real(),
 					( result.v.imag() > 0 ? _T('+') : _T('-') ),
@@ -53,11 +65,17 @@ int main(int argc, char ** argv, char ** env)
 		}
 		catch( CExprParserException & e )
 		{
-			printf(TEXT("Error evaluating: %s\n"), e.Message().GetString());
+			tprintf(
+#ifdef _UNICODE
+			TEXT("Error evaluating: %ls\n")
+#else
+			TEXT("Error evaluating: %s\n")
+#endif
+, e.Message().GetString());
 		}
 		catch( std::exception & e )
 		{
-			printf(TEXT("Complex evaluating error!\n"));
+			tprintf(TEXT("Complex evaluating error!\n"));
 		}
 	}
 
