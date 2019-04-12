@@ -479,7 +479,7 @@ class CExprParser
 		}
 
 		
-		for ( auto v : uPostOp )
+		for ( const auto & v : uPostOp )
 			dVal = v.Func()( dVal );
 
 		// reverse order for prefix operands
@@ -789,7 +789,7 @@ class CExprParser
 		tree.insert( tree.end(), stack.rbegin(), stack.rend() );
 
 #ifdef _DEBUG
-		for ( auto v : tree )
+		for ( const auto & v : tree )
 		{
 			_tprintf( TEXT( "Operand: %ld" ), v.ett );
 			if ( v.ett == ettNumber )
