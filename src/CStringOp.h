@@ -42,8 +42,8 @@ public:
 	CStringOp( const wchar_t * sz );
 	CStringOp( const char * sz );
 
-	CStringOp operator=( const CStringOp & x );
-	CStringOp operator=( LPCTSTR sz );
+	CStringOp & operator=( const CStringOp & x );
+	CStringOp & operator=( LPCTSTR sz );
 	bool operator==( const CStringOp & x ) const;
 	bool operator>( const CStringOp & x ) const;
 	bool operator>=( const CStringOp & x ) const;
